@@ -16,11 +16,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 1em;
 }
 
 .quiz-header {
   border: var(--hot-pink) 0.125em solid;
   border-radius: 0.25em;
+  box-shadow: inset 0 0 0.5em var(--hot-pink), 0 0 0.5em var(--hot-pink);
   padding: 10px;
   margin: 10px;
 }
@@ -30,6 +32,7 @@
   border-radius: 0.25em;
   padding: 10px;
   margin: 10px;
+  box-shadow: inset 0 0 0.5em var(--hot-pink), 0 0 0.5em var(--hot-pink);
   display: flex;
   flex-direction: column;
   width: 100vh;
@@ -58,11 +61,31 @@ h1 {
     padding: 0.5em;
 }
 
+/* this is from the js code insertion  */
 .timer-text {
     color: var(--hot-pink);
     font-size: larger;
+    border: var(--hot-pink) 0.125em solid;
+    box-shadow: inset 0 0 0.5em var(--hot-pink), 0 0 0.5em var(--hot-pink);
+    border-radius: 0.25em;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100vh;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+
 }
 
+.js-buttons {
+    padding: 10px;
+    margin: 10px;
+    border: var(--hot-pink) 0.125em solid;
+    color: var(--hot-pink);
+}
+/* ************** */
 .start-button {
   color: var(--hot-pink);
   padding: 0.25em 1em;
