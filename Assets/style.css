@@ -2,7 +2,7 @@
 *::before,
 *::after {
   background-color: var(--dark-bg);
-  border-style: border-box;
+  box-sizing: border-box;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -68,7 +68,7 @@ h1 {
     border: var(--hot-pink) 0.125em solid;
     box-shadow: inset 0 0 0.5em var(--hot-pink), 0 0 0.5em var(--hot-pink);
     border-radius: 0.25em;
-    padding: 10px;
+    padding: 5px;
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -84,7 +84,16 @@ h1 {
     margin: 10px;
     border: var(--hot-pink) 0.125em solid;
     color: var(--hot-pink);
+    border-radius: 0.25em;
+
 }
+
+.js-buttons:hover {
+    background-color: var(--hot-pink);
+    color: var(--dark-bg);
+    text-shadow: 0 0 0.5em darkblue;
+}
+
 /* ************** */
 .start-button {
   color: var(--hot-pink);
