@@ -1,3 +1,5 @@
+
+
 let timerEl = document.getElementById("time-left");
 let currentScore = document.getElementById("current-score");
 let button = document.querySelector(".start-button");
@@ -64,52 +66,53 @@ function question() {
   questionOneli3.classList.add("js-buttons");
   questionOneli4.classList.add("js-buttons");
 
-  questionOneli1.addEventListener("click", correct)
+  questionOneli1.addEventListener("click", correct);
   questionOneli2.addEventListener("click", wrong);
   questionOneli3.addEventListener("click", wrong);
   questionOneli4.addEventListener("click", wrong);
 }
 
-function question2() {
-    quizBlock.replaceChild(newDiv2, newDiv);
-    newDiv2.classList.add("timer-text");
-    newDiv2.textContent = "Question 2";
-    questionOne.setAttribute(
-      "style",
-      "display: flex; flex-direction: column; justify-content: space-between; padding:10px; margin: 10px; color:#f01ad9"
-    );
-    newDiv2.appendChild(questionOne);
-    newDiv2.appendChild(questionButtons);
-    questionOne.textContent = "What is a good thing?";
-    questionButtons.classList.add("timer-text");
-    questionButtons.setAttribute("style", "justify-content: space-around;");
-    questionButtons.appendChild(questionOneli1);
-    questionButtons.appendChild(questionOneli2);
-    questionButtons.appendChild(questionOneli3);
-    questionButtons.appendChild(questionOneli4);
-    questionOneli1.textContent = "option 1";
-    questionOneli2.textContent = "option 2";
-    questionOneli3.textContent = "option 3";
-    questionOneli4.textContent = "option 4";
-    questionOneli1.classList.add("js-buttons");
-    questionOneli2.classList.add("js-buttons");
-    questionOneli3.classList.add("js-buttons");
-    questionOneli4.classList.add("js-buttons");
+// function question2() {
+//   quizBlock.replaceChild(newDiv2, newDiv);
+//   newDiv2.classList.add("timer-text");
+//   newDiv2.textContent = "Question 2";
+//   questionOne.setAttribute(
+//     "style",
+//     "display: flex; flex-direction: column; justify-content: space-between; padding:10px; margin: 10px; color:#f01ad9"
+//   );
+//   newDiv2.appendChild(questionOne);
+//   newDiv2.appendChild(questionButtons);
+//   questionOne.textContent = "What is a good thing?";
+//   questionButtons.classList.add("timer-text");
+//   questionButtons.setAttribute("style", "justify-content: space-around;");
+//   questionButtons.appendChild(questionOneli1);
+//   questionButtons.appendChild(questionOneli2);
+//   questionButtons.appendChild(questionOneli3);
+//   questionButtons.appendChild(questionOneli4);
+//   questionOneli1.textContent = "option 1";
+//   questionOneli2.textContent = "option 2";
+//   questionOneli3.textContent = "option 3";
+//   questionOneli4.textContent = "option 4";
+//   questionOneli1.classList.add("js-buttons");
+//   questionOneli2.classList.add("js-buttons");
+//   questionOneli3.classList.add("js-buttons");
+//   questionOneli4.classList.add("js-buttons");
 
-}
+//   questionOneli1.addEventListener("click", wrong);
+//   questionOneli2.addEventListener("click", correct(questionOneli2));
+//   questionOneli3.addEventListener("click", wrong);
+//   questionOneli4.addEventListener("click", wrong);
+// }
 
 function correct() {
-    questionOneli1.textContent = "correct!";
-    score ++;
-    console.log(score);
-    currentScore.textContent = `${score}`;
-    question2();
-
+  questionOneli1.textContent = "correct!";
+  score++;
+  console.log(score);
+  currentScore.textContent = `${score}`;
 }
 
-
-function wrong () {
-    this.textContent = "incorrect!";
+function wrong() {
+  this.textContent = "incorrect!";
 }
 
 button.addEventListener("click", countdown);

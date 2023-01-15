@@ -39,11 +39,13 @@
   height: 50vh;
   justify-content: center;
   align-items: center;
+  color: var(--hot-pink);
 }
 
 .button-div {
   flex: 1 0 20%;
 }
+
 
 .high-timer {
   display: flex;
