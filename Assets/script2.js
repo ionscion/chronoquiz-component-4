@@ -15,6 +15,15 @@ const questions = [
       { text: "If/else statements", correct: false },
     ],
   },
+  {
+    question: "Placeholder 2?",
+    answers: [
+      { text: "Stuff", correct: false },
+      { text: "More stuff", correct: true },
+      { text: "wrong", correct: false },
+      { text: "If/else statements", correct: false },
+    ],
+  },
 ];
 
 let shuffledQues;
@@ -37,10 +46,12 @@ function reset() {
 
 function statusClass(element, correct) {
   clearStatus(element);
-  if (correct===true) {
+  if (correct=== "true") {
     element.classList.add("correct");
+    element.classList.remove("js-buttons");
   } else {
     element.classList.add("wrong");
+    element.classList.remove("js-buttons");
   }
 }
 
@@ -49,7 +60,7 @@ function clearStatus(element) {
   element.classList.remove("wrong");
 }
 
-function chooseAnswer(selection, question) {
+function chooseAnswer(selection) {
   const selectButton = selection.target;
   const correct = selectButton.dataset.correct;
   statusClass(selectButton, correct);
@@ -72,10 +83,9 @@ function showQuestions(question) {
 }
 
 function countdown() {
-  let timeLeft = 5;
-  //   quizLanding.style.visibility = "hidden";
-  startButton.style.visibility = "hidden";
-  titleHead.style.visibility = "hidden";
+  let timeLeft = 10;
+  startButton.classList.add("hide");
+  titleHead.classList.add("hide");
   shuffledQues = questions.sort(() => Math.random - 0.5);
   nextQuestion();
   let timeInterval = setInterval(function () {
@@ -94,3 +104,7 @@ function countdown() {
 }
 
 startButton.addEventListener("click", countdown);
+nextButton.addEventListener("click",()=> {
+    currentQuestionIndex++;
+    nextQuestion();
+} )
