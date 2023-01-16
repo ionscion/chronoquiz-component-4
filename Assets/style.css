@@ -79,6 +79,19 @@ h1 {
   color: var(--hot-pink);
 }
 
+.question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#question {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 /* this is from the js code insertion  */
 .timer-text {
   color: var(--hot-pink);
@@ -104,7 +117,7 @@ h1 {
   border-radius: 0.25em;
 }
 
-.wrong {
+.incorrect {
   padding: 10px;
   margin: 10px;
   border: var(--bright-red) 0.125em solid;
@@ -179,6 +192,6 @@ h1 {
   text-shadow: 0 0 0.5em darkblue;
 }
 
-.hide {
+.hidden {
     display: none;
 }

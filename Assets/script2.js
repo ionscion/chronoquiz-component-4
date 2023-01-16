@@ -4,6 +4,7 @@ let titleHead = document.querySelector(".quiz-header");
 let quizLanding = document.getElementById("quiz");
 let timerEl = document.getElementById("time-left");
 let currentScore = document.getElementById("current-score");
+const buttonDiv = document.querySelector(".button-div");
 
 const questions = [
   {
@@ -24,6 +25,15 @@ const questions = [
       { text: "If/else statements", correct: false },
     ],
   },
+  {
+    question: "Placeholder 3?",
+    answers: [
+      { text: "number 3", correct: false },
+      { text: "More stuff", correct: false },
+      { text: "sweet", correct: true },
+      { text: "If/else statements", correct: false },
+    ],
+  },
 ];
 
 let shuffledQues;
@@ -33,12 +43,12 @@ const questionElem = document.getElementById("question");
 const answerButtonsElem = document.getElementById("question-buttons");
 
 function nextQuestion() {
-  reset();
+  clearPage();
   showQuestions(shuffledQues[currentQuestionIndex]);
 }
 
-function reset() {
-  nextButton.classList.add("hide");
+function clearPage() {
+  nextButton.classList.add("hidden");
   while (answerButtonsElem.firstChild) {
     answerButtonsElem.removeChild(answerButtonsElem.firstChild);
   }
@@ -46,18 +56,18 @@ function reset() {
 
 function statusClass(element, correct) {
   clearStatus(element);
-  if (correct=== "true") {
+  if (correct === "true") {
     element.classList.add("correct");
     element.classList.remove("js-buttons");
   } else {
-    element.classList.add("wrong");
+    element.classList.add("incorrect");
     element.classList.remove("js-buttons");
   }
 }
 
 function clearStatus(element) {
   element.classList.remove("correct");
-  element.classList.remove("wrong");
+  element.classList.remove("incorrect");
 }
 
 function chooseAnswer(selection) {
@@ -67,14 +77,22 @@ function chooseAnswer(selection) {
   Array.from(answerButtonsElem.children).forEach((button) => {
     statusClass(button, button.dataset.correct);
   });
-  nextButton.classList.remove("hide");
+  if (shuffledQues.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove("hidden");
+  } else {
+    shuffledQues;
+    startButton.classList.remove("hidden");
+    startButton.textContent = "Restart";
+    currentQuestionIndex = 0;
+    startButton.addEventListener("click", countdown);
+  }
 }
 
 function showQuestions(question) {
-  questionElem.innerText = question.question;
+  questionElem.textContent = question.question;
   question.answers.forEach((answer) => {
     const button = document.createElement("button");
-    button.innerText = answer.text;
+    button.textContent = answer.text;
     button.classList.add("js-buttons");
     button.dataset.correct = answer.correct;
     button.addEventListener("click", chooseAnswer);
@@ -84,8 +102,8 @@ function showQuestions(question) {
 
 function countdown() {
   let timeLeft = 10;
-  startButton.classList.add("hide");
-  titleHead.classList.add("hide");
+  startButton.classList.add("hidden");
+  titleHead.classList.add("hidden");
   shuffledQues = questions.sort(() => Math.random - 0.5);
   nextQuestion();
   let timeInterval = setInterval(function () {
@@ -97,14 +115,20 @@ function countdown() {
       timeLeft--;
     } else {
       timerEl.textContent = "Time's up";
-
+      shuffledQues;
+      startButton.classList.remove("hidden");
+      startButton.textContent = "Restart";
+      currentQuestionIndex = 0;
+      startButton.addEventListener("click", countdown);
+      alert("Your time is up! Click restart to play again");
       clearInterval(timeInterval);
     }
   }, 1000);
 }
 
 startButton.addEventListener("click", countdown);
-nextButton.addEventListener("click",()=> {
-    currentQuestionIndex++;
-    nextQuestion();
-} )
+
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+  nextQuestion();
+});
