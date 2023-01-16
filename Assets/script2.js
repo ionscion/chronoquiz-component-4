@@ -1,10 +1,13 @@
-let startButton = document.querySelector(".start-button");
+let startButton = document.getElementById("start-button");
+let nextButton = document.getElementById("next-button");
 let titleHead = document.querySelector(".quiz-header");
-let quizLanding = document.getElementById("#quiz");
+let quizLanding = document.getElementById("quiz");
+let timerEl = document.getElementById("time-left");
+let currentScore = document.getElementById("current-score");
 
-const question = [
+const questions = [
   {
-    questionText: "What is a useful tool for debugging your code?",
+    question: "What is a useful tool for debugging your code?",
     answers: [
       { text: "console log", correct: true },
       { text: "Reading the manual", correct: false },
@@ -14,18 +17,67 @@ const question = [
   },
 ];
 
-let questionDiv = document.getElementById("question-title");
-let quizAnswers = document.getElementById("question-buttons");
+let shuffledQues;
+let currentQuestionIndex = 0;
+
+const questionElem = document.getElementById("question");
+const answerButtonsElem = document.getElementById("question-buttons");
+
+function nextQuestion() {
+  reset();
+  showQuestions(shuffledQues[currentQuestionIndex]);
+}
+
+function reset() {
+  nextButton.classList.add("hide");
+  while (answerButtonsElem.firstChild) {
+    answerButtonsElem.removeChild(answerButtonsElem.firstChild);
+  }
+}
+
+function statusClass(element, correct) {
+  clearStatus(element);
+  if (correct===true) {
+    element.classList.add("correct");
+  } else {
+    element.classList.add("wrong");
+  }
+}
+
+function clearStatus(element) {
+  element.classList.remove("correct");
+  element.classList.remove("wrong");
+}
+
+function chooseAnswer(selection, question) {
+  const selectButton = selection.target;
+  const correct = selectButton.dataset.correct;
+  statusClass(selectButton, correct);
+  Array.from(answerButtonsElem.children).forEach((button) => {
+    statusClass(button, button.dataset.correct);
+  });
+  nextButton.classList.remove("hide");
+}
 
 function showQuestions(question) {
-  questionDiv.textContent = question.questionText;
+  questionElem.innerText = question.question;
+  question.answers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.innerText = answer.text;
+    button.classList.add("js-buttons");
+    button.dataset.correct = answer.correct;
+    button.addEventListener("click", chooseAnswer);
+    answerButtonsElem.appendChild(button);
+  });
 }
 
 function countdown() {
   let timeLeft = 5;
-  quizLanding.style.visibility = "hidden";
+  //   quizLanding.style.visibility = "hidden";
   startButton.style.visibility = "hidden";
   titleHead.style.visibility = "hidden";
+  shuffledQues = questions.sort(() => Math.random - 0.5);
+  nextQuestion();
   let timeInterval = setInterval(function () {
     if (timeLeft > 1) {
       timerEl.textContent = ` ${timeLeft} seconds remaining`;
@@ -41,4 +93,4 @@ function countdown() {
   }, 1000);
 }
 
-startButton.addEventListener("click", showQuestions);
+startButton.addEventListener("click", countdown);
