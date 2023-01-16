@@ -1,10 +1,10 @@
 let startButton = document.getElementById("start-button");
 let nextButton = document.getElementById("next-button");
 let titleHead = document.querySelector(".quiz-header");
-let quizLanding = document.getElementById("quiz");
 let timerEl = document.getElementById("time-left");
 let currentScore = document.getElementById("current-score");
-const buttonDiv = document.querySelector(".button-div");
+let form = document.getElementById("html-Form");
+let questionContainer = document.getElementById("question-container");
 
 const questions = [
   {
@@ -17,28 +17,39 @@ const questions = [
     ],
   },
   {
-    question: "Placeholder 2?",
+    question:
+      "Complete the function such that it returns true for passing grades and false otherwise (9 and below are failing grades): Function isPassing(grade)",
     answers: [
-      { text: "Stuff", correct: false },
-      { text: "More stuff", correct: true },
-      { text: "wrong", correct: false },
-      { text: "If/else statements", correct: false },
+      { text: "Return", correct: false },
+      { text: "Return grade = 10", correct: false },
+      { text: "Return grade >= 10", correct: true },
+      { text: "if (grade >10) return true", correct: false },
     ],
   },
   {
-    question: "Placeholder 3?",
+    question: "How do you get the first element of an array?",
     answers: [
-      { text: "number 3", correct: false },
-      { text: "More stuff", correct: false },
-      { text: "sweet", correct: true },
-      { text: "If/else statements", correct: false },
+      { text: ".first()", correct: false },
+      { text: ".index(0)", correct: false },
+      { text: "index(1)", correct: false },
+      { text: "index[0]", correct: true },
+    ],
+  },
+  {
+    question: "Add Q4 to the list of quarters: let quarters = [Q1, Q2, Q3]",
+    answers: [
+      { text: "quarters.push('Q4')", correct: true },
+      { text: "quarters = Q4", correct: false },
+      { text: "quarters = quarters.push('Q4')", correct: false },
+      { text: "quarters.length(Q4)", correct: false },
     ],
   },
 ];
-
-let shuffledQues;
+let timeLeft = 15;
+let shuffledQues = [];
 let currentQuestionIndex = 0;
 
+const buttonDiv = document.querySelector(".button-div");
 const questionElem = document.getElementById("question");
 const answerButtonsElem = document.getElementById("question-buttons");
 
@@ -77,6 +88,12 @@ function chooseAnswer(selection) {
   Array.from(answerButtonsElem.children).forEach((button) => {
     statusClass(button, button.dataset.correct);
   });
+
+  if (correct === "false") {
+    timeLeft -= 5;
+    timerEl.textContent = ` ${timeLeft} seconds remaining`;
+  }
+
   if (shuffledQues.length > currentQuestionIndex + 1) {
     nextButton.classList.remove("hidden");
   } else {
@@ -84,6 +101,7 @@ function chooseAnswer(selection) {
     startButton.classList.remove("hidden");
     startButton.textContent = "Restart";
     currentQuestionIndex = 0;
+    nextButton.classList.add("hidden");
     startButton.addEventListener("click", countdown);
   }
 }
@@ -101,7 +119,6 @@ function showQuestions(question) {
 }
 
 function countdown() {
-  let timeLeft = 10;
   startButton.classList.add("hidden");
   titleHead.classList.add("hidden");
   shuffledQues = questions.sort(() => Math.random - 0.5);
@@ -116,11 +133,13 @@ function countdown() {
     } else {
       timerEl.textContent = "Time's up";
       shuffledQues;
+      timeLeft = 15;
       startButton.classList.remove("hidden");
       startButton.textContent = "Restart";
       currentQuestionIndex = 0;
       startButton.addEventListener("click", countdown);
       alert("Your time is up! Click restart to play again");
+      form.classList.remove("hidden");
       clearInterval(timeInterval);
     }
   }, 1000);
