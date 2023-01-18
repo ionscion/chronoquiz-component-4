@@ -5,6 +5,13 @@ let timerEl = document.getElementById("time-left");
 let currentScore = document.getElementById("current-score");
 let form = document.getElementById("html-Form");
 let questionContainer = document.getElementById("question-container");
+let timeLeft = 15;
+let shuffledQues = [];
+let currentQuestionIndex = 0;
+
+const buttonDiv = document.querySelector(".button-div");
+const questionElem = document.getElementById("question");
+const answerButtonsElem = document.getElementById("question-buttons");
 
 const questions = [
   {
@@ -45,13 +52,6 @@ const questions = [
     ],
   },
 ];
-let timeLeft = 15;
-let shuffledQues = [];
-let currentQuestionIndex = 0;
-
-const buttonDiv = document.querySelector(".button-div");
-const questionElem = document.getElementById("question");
-const answerButtonsElem = document.getElementById("question-buttons");
 
 function nextQuestion() {
   clearPage();
