@@ -9,9 +9,10 @@
 :root {
   --hot-pink: #f01ad9;
   --dark-bg: #292929;
-  --bright-green: #55F500;
-  --bright-red: #FB241A;
+  --bright-green: #55f500;
+  --bright-red: #fb241a;
 }
+/*need to have responsive scaling*/
 
 .quiz-block {
   display: flex;
@@ -46,6 +47,14 @@
 
 .button-div {
   flex: 1 0 20%;
+}
+
+#high-scores {
+  color: var(--hot-pink);
+}
+
+.show-scores {
+  color: var(--hot-pink);
 }
 
 .high-timer {
@@ -222,5 +231,5 @@ h1 {
 }
 
 .hidden {
-    display: none;
+  display: none;
 }

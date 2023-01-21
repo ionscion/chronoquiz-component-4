@@ -1,13 +1,16 @@
 let startButton = document.getElementById("start-button");
 let nextButton = document.getElementById("next-button");
+let showScore = document.getElementById("show-scores");
 let titleHead = document.querySelector(".quiz-header");
 let timerEl = document.getElementById("time-left");
-let currentScore = document.getElementById("current-score");
+let tableScore = document.getElementById("high-scores");
 let form = document.getElementById("html-Form");
 let questionContainer = document.getElementById("question-container");
 let timeLeft = 15;
 let shuffledQues = [];
 let currentQuestionIndex = 0;
+let score = localStorage.getItem("score");
+let initials = localStorage.getItem("initials");
 
 const buttonDiv = document.querySelector(".button-div");
 const questionElem = document.getElementById("question");
@@ -134,18 +137,23 @@ function countdown() {
       timerEl.textContent = "Time's up";
       shuffledQues;
       timeLeft = 15;
-      startButton.classList.remove("hidden");
-      startButton.textContent = "Restart";
+      nextButton.classList.add("hidden");
       currentQuestionIndex = 0;
       startButton.addEventListener("click", countdown);
-      alert("Your time is up! Click restart to play again");
       form.classList.remove("hidden");
       clearInterval(timeInterval);
+      localStorage.setItem("initials", document.getElementById("#initials"));
     }
   }, 1000);
 }
 
+//prevent default? need to add maybe
 startButton.addEventListener("click", countdown);
+
+showScore.addEventListener("click", () => {
+  tableScore.classList.remove("hidden");
+  showScore.classList.add("hidden");
+});
 
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;

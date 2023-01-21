@@ -9,8 +9,18 @@
   </head>
   <body>
     <section class="high-timer">
-      <div id="high-scores">
-        <p>View High Scores: <span id="current-score"></span></p>
+      <table id="high-scores" class="hidden">
+        <tr>
+          <th>Initials</th>
+          <th>Score</th>
+        </tr>
+        <tr>
+          <td><span class="initials"></span></td>
+          <td><span class="score"></span></td>
+        </tr>
+      </table>
+      <div>
+        <button class="js-buttons" id="show-scores">Show Scores</button>
       </div>
       <div id="timer">
         <p>Time left: <span id="time-left"></span></p>
@@ -46,8 +56,14 @@
       </div>
       <form class="hidden" action="" method="get" id="html-Form">
         <div class="form">
-          <label for="name">Enter your initials to save score and restart: </label>
-          <input class = "form-submit" type="text" name="name" id="initials" required />
+          <label for="name">Enter your initials to save your score: </label>
+          <input
+            class="form-submit"
+            type="text"
+            name="name"
+            id="initials"
+            required
+          />
         </div>
         <div class="form">
           <input class="form-submit" type="submit" value="Save!" />
