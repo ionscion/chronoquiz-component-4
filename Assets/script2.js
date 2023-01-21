@@ -12,6 +12,8 @@ let timeLeft = 15;
 let shuffledQues = [];
 let currentQuestionIndex = 0;
 let currentScore = 0;
+let initials = [];
+let scores = [];
 
 const buttonDiv = document.querySelector(".button-div");
 const questionElem = document.getElementById("question");
@@ -147,36 +149,48 @@ function countdown() {
 }
 
 form.addEventListener("submit", function (event) {
-  // event.preventDefault();
   let initialsInput = form.querySelector("input[id='initials']");
-  let initials = initialsInput.value;
-  let score = currentScore;
-  let newRow = document.createElement("tr");
-  let initialsCell = document.createElement("td");
-  initialsCell.textContent = initials;
-  let scoreCell = document.createElement("td");
-  scoreCell.textContent = score;
-  newRow.appendChild(initialsCell);
-  newRow.appendChild(scoreCell);
-  tableScore.appendChild(newRow);
-  localStorage.setItem("initials", initials);
-  localStorage.setItem("score", score);
+  initials.push(initialsInput.value);
+  scores.push(currentScore);
+  localStorage.setItem("initials", JSON.stringify(initials));
+  localStorage.setItem("score", JSON.stringify(scores));
   form.reset();
 });
 
-function loadScores() {
-  let allInitials = localStorage.getItem("initials");
-  let allScores = localStorage.getItem("score");
-  let newRow = document.createElement("tr");
-  let initialsCell = document.createElement("td");
-  initialsCell.textContent = allInitials;
-  let scoreCell = document.createElement("td");
-  scoreCell.textContent = allScores;
-  newRow.appendChild(initialsCell);
-  newRow.appendChild(scoreCell);
-  tableScore.appendChild(newRow);
+function renderInitials() {
+  let storedInitials = JSON.parse(localStorage.getItem("initials"));
+  if (storedInitials !== null) {
+    initials = storedInitials;
+    for (let i = 0; i < initials.length; i++) {
+      let initial = initials[i];
+      let newRow = document.createElement("tr");
+      let initialsCell = document.createElement("td");
+      initialsCell.textContent = initial;
+      tableScore.appendChild(newRow);
+    }
+  } else {return;}
 }
-window.onload = loadScores;
+
+function renderScores() {
+  let storedScores = JSON.parse(localStorage.getItem("score"));
+  if (storedScores !== null) {
+    scores = storedScores;
+    for (let i = 0; i < scores.length; i++) {
+      let score = scores[i];
+      let newRow = document.createElement("tr");
+      let scoreCell = document.createElement("td");
+      scoreCell.textContent = score;
+      tableScore.appendChild(newRow);
+    }
+  } else {return;}
+}
+
+function init() {
+  renderInitials();
+  renderScores();
+}
+
+init();
 
 startButton.addEventListener("click", countdown);
 
@@ -196,3 +210,17 @@ nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
   nextQuestion();
 });
+
+//need to store to an array and use parse/stringify to pull array etc
+// function loadScores() {
+//   let allInitials = localStorage.getItem("initials");
+//   let allScores = localStorage.getItem("score");
+//   let newRow = document.createElement("tr");
+//   let initialsCell = document.createElement("td");
+//   initialsCell.textContent = allInitials;
+//   let scoreCell = document.createElement("td");
+//   scoreCell.textContent = allScores;
+//   newRow.appendChild(initialsCell);
+//   newRow.appendChild(scoreCell);
+//   tableScore.appendChild(newRow);
+// }
