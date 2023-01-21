@@ -1,6 +1,8 @@
 let startButton = document.getElementById("start-button");
 let nextButton = document.getElementById("next-button");
 let showScore = document.getElementById("show-scores");
+let hideScore = document.getElementById("hide-scores");
+
 let titleHead = document.querySelector(".quiz-header");
 let timerEl = document.getElementById("time-left");
 let tableScore = document.getElementById("high-scores");
@@ -9,8 +11,7 @@ let questionContainer = document.getElementById("question-container");
 let timeLeft = 15;
 let shuffledQues = [];
 let currentQuestionIndex = 0;
-let score = localStorage.getItem("score");
-let initials = localStorage.getItem("initials");
+let currentScore = 0;
 
 const buttonDiv = document.querySelector(".button-div");
 const questionElem = document.getElementById("question");
@@ -73,6 +74,7 @@ function statusClass(element, correct) {
   if (correct === "true") {
     element.classList.add("correct");
     element.classList.remove("js-buttons");
+    currentScore += 10;
   } else {
     element.classList.add("incorrect");
     element.classList.remove("js-buttons");
@@ -142,18 +144,47 @@ function countdown() {
       startButton.addEventListener("click", countdown);
       form.classList.remove("hidden");
       clearInterval(timeInterval);
+      setScores();
       localStorage.setItem("initials", document.getElementById("#initials"));
     }
   }, 1000);
 }
 
-//prevent default? need to add maybe
+function setScores() {
+  
+}
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  let initialsInput = form.querySelector("input[id='initials']");
+  let initials = initialsInput.value;
+  let score = currentScore;
+  let newRow = document.createElement("tr");
+  let initialsCell = document.createElement("td");
+  initialsCell.textContent = initials;
+  let scoreCell = document.createElement("td");
+  scoreCell.textContent = score;
+  newRow.appendChild(initialsCell);
+  newRow.appendChild(scoreCell);
+  tableScore.appendChild(newRow);
+  localStorage.setItem("initials", initials);
+  localStorage.setItem("score", score);
+  form.reset();
+})
+
 startButton.addEventListener("click", countdown);
 
 showScore.addEventListener("click", () => {
   tableScore.classList.remove("hidden");
   showScore.classList.add("hidden");
+  hideScore.classList.remove("hidden");
 });
+
+hideScore.addEventListener("click", ()=> {
+  tableScore.classList.add("hidden");
+  showScore.classList.remove("hidden");
+  hideScore.classList.add("hidden");
+})
 
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;

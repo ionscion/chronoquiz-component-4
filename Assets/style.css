@@ -57,6 +57,11 @@
   color: var(--hot-pink);
 }
 
+.score-buttons {
+  flex-direction: column;
+  align-self: flex-start;
+}
+
 .high-timer {
   display: flex;
   justify-content: space-between;
