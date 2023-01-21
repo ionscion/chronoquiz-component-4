@@ -74,7 +74,6 @@ function statusClass(element, correct) {
   if (correct === "true") {
     element.classList.add("correct");
     element.classList.remove("js-buttons");
-    currentScore += 10;
   } else {
     element.classList.add("incorrect");
     element.classList.remove("js-buttons");
@@ -97,6 +96,8 @@ function chooseAnswer(selection) {
   if (correct === "false") {
     timeLeft -= 5;
     timerEl.textContent = ` ${timeLeft} seconds remaining`;
+  } else {
+    currentScore += 10;
   }
 
   if (shuffledQues.length > currentQuestionIndex + 1) {
@@ -130,10 +131,7 @@ function countdown() {
   nextQuestion();
   let timeInterval = setInterval(function () {
     if (timeLeft > 1) {
-      timerEl.textContent = ` ${timeLeft} seconds remaining`;
-      timeLeft--;
-    } else if (timeLeft === 1) {
-      timerEl.textContent = ` ${timeLeft} second remaining`;
+      timerEl.textContent = ` ${timeLeft}`;
       timeLeft--;
     } else {
       timerEl.textContent = "Time's up";
@@ -144,18 +142,12 @@ function countdown() {
       startButton.addEventListener("click", countdown);
       form.classList.remove("hidden");
       clearInterval(timeInterval);
-      setScores();
-      localStorage.setItem("initials", document.getElementById("#initials"));
     }
   }, 1000);
 }
 
-function setScores() {
-  
-}
-
 form.addEventListener("submit", function (event) {
-  event.preventDefault();
+  // event.preventDefault();
   let initialsInput = form.querySelector("input[id='initials']");
   let initials = initialsInput.value;
   let score = currentScore;
@@ -170,7 +162,21 @@ form.addEventListener("submit", function (event) {
   localStorage.setItem("initials", initials);
   localStorage.setItem("score", score);
   form.reset();
-})
+});
+
+function loadScores() {
+  let allInitials = localStorage.getItem("initials");
+  let allScores = localStorage.getItem("score");
+  let newRow = document.createElement("tr");
+  let initialsCell = document.createElement("td");
+  initialsCell.textContent = allInitials;
+  let scoreCell = document.createElement("td");
+  scoreCell.textContent = allScores;
+  newRow.appendChild(initialsCell);
+  newRow.appendChild(scoreCell);
+  tableScore.appendChild(newRow);
+}
+window.onload = loadScores;
 
 startButton.addEventListener("click", countdown);
 
@@ -180,11 +186,11 @@ showScore.addEventListener("click", () => {
   hideScore.classList.remove("hidden");
 });
 
-hideScore.addEventListener("click", ()=> {
+hideScore.addEventListener("click", () => {
   tableScore.classList.add("hidden");
   showScore.classList.remove("hidden");
   hideScore.classList.add("hidden");
-})
+});
 
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;

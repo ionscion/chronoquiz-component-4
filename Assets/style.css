@@ -45,6 +45,12 @@
   color: var(--hot-pink);
 }
 
+#table-and-scores {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
 .button-div {
   flex: 1 0 20%;
 }
@@ -64,9 +70,12 @@
 
 .high-timer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 10px;
   font-weight: bold;
+  width: 100%;
+  z-index: 100;
+  position: relative;
 }
 
 p {
@@ -86,7 +95,7 @@ h1 {
   box-shadow: inset 0 0 0.5em var(--hot-pink), 0 0 0.5em var(--hot-pink);
   display: flex;
   flex-direction: column;
-  width: 100vh;
+  width: 100%;
   height: 50vh;
   justify-content: center;
   align-items: center;
@@ -237,4 +246,18 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+@media (max-width: 450px) {
+  #question-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .high-timer {
+    display: flex;
+  }
+  .quiz-block {
+    padding: 15px;
+  }
 }
