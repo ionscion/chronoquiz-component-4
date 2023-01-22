@@ -12,7 +12,6 @@ let timeLeft = 15;
 let shuffledQues = [];
 let currentQuestionIndex = 0;
 let currentScore = 0;
-let initials = [];
 let scores = [];
 
 const buttonDiv = document.querySelector(".button-div");
@@ -97,7 +96,7 @@ function chooseAnswer(selection) {
 
   if (correct === "false") {
     timeLeft -= 5;
-    timerEl.textContent = ` ${timeLeft} seconds remaining`;
+    timerEl.textContent = timeLeft;
   } else {
     currentScore += 10;
   }
@@ -106,11 +105,9 @@ function chooseAnswer(selection) {
     nextButton.classList.remove("hidden");
   } else {
     shuffledQues;
-    startButton.classList.remove("hidden");
-    startButton.textContent = "Restart";
     currentQuestionIndex = 0;
     nextButton.classList.add("hidden");
-    startButton.addEventListener("click", countdown);
+    // startButton.addEventListener("click", countdown);
   }
 }
 
@@ -149,45 +146,37 @@ function countdown() {
 }
 
 form.addEventListener("submit", function (event) {
+  let initials = JSON.parse(localStorage.getItem("initials")) || [];
+  let scores = JSON.parse(localStorage.getItem("scores")) || [];
   let initialsInput = form.querySelector("input[id='initials']");
   initials.push(initialsInput.value);
   scores.push(currentScore);
+  console.log(`initials is at input: ${initials}`);
+  console.log(`score at input is ${scores}`);
   localStorage.setItem("initials", JSON.stringify(initials));
-  localStorage.setItem("score", JSON.stringify(scores));
+  localStorage.setItem("scores", JSON.stringify(scores));
   form.reset();
 });
 
-function renderInitials() {
-  let storedInitials = JSON.parse(localStorage.getItem("initials"));
-  if (storedInitials !== null) {
-    initials = storedInitials;
-    for (let i = 0; i < initials.length; i++) {
-      let initial = initials[i];
-      let newRow = document.createElement("tr");
-      let initialsCell = document.createElement("td");
-      initialsCell.textContent = initial;
-      tableScore.appendChild(newRow);
-    }
-  } else {return;}
-}
-
-function renderScores() {
-  let storedScores = JSON.parse(localStorage.getItem("score"));
-  if (storedScores !== null) {
-    scores = storedScores;
-    for (let i = 0; i < scores.length; i++) {
-      let score = scores[i];
-      let newRow = document.createElement("tr");
-      let scoreCell = document.createElement("td");
-      scoreCell.textContent = score;
-      tableScore.appendChild(newRow);
-    }
-  } else {return;}
+function renderScoresTable(initials, scores) {
+  for (let i = 0; i < initials.length; i++) {
+    let initial = initials[i];
+    let score = scores[i];
+    let newRow = document.createElement("tr");
+    let initialsCell = document.createElement("td");
+    initialsCell.textContent = initial;
+    let scoreCell = document.createElement("td");
+    scoreCell.textContent = score;
+    newRow.appendChild(initialsCell);
+    newRow.appendChild(scoreCell);
+    tableScore.appendChild(newRow);
+  }
 }
 
 function init() {
-  renderInitials();
-  renderScores();
+  let initials = JSON.parse(localStorage.getItem("initials")) || [];
+  let scores = JSON.parse(localStorage.getItem("scores")) || [];
+  renderScoresTable(initials, scores);
 }
 
 init();
@@ -210,17 +199,3 @@ nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
   nextQuestion();
 });
-
-//need to store to an array and use parse/stringify to pull array etc
-// function loadScores() {
-//   let allInitials = localStorage.getItem("initials");
-//   let allScores = localStorage.getItem("score");
-//   let newRow = document.createElement("tr");
-//   let initialsCell = document.createElement("td");
-//   initialsCell.textContent = allInitials;
-//   let scoreCell = document.createElement("td");
-//   scoreCell.textContent = allScores;
-//   newRow.appendChild(initialsCell);
-//   newRow.appendChild(scoreCell);
-//   tableScore.appendChild(newRow);
-// }
