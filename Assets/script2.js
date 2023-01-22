@@ -8,7 +8,7 @@ let timerEl = document.getElementById("time-left");
 let tableScore = document.getElementById("high-scores");
 let form = document.getElementById("html-Form");
 let questionContainer = document.getElementById("question-container");
-let timeLeft = 15;
+let timeLeft = 25;
 let shuffledQues = [];
 let currentQuestionIndex = 0;
 let currentScore = 0;
@@ -54,6 +54,61 @@ const questions = [
       { text: "quarters = Q4", correct: false },
       { text: "quarters = quarters.push('Q4')", correct: false },
       { text: "quarters.length(Q4)", correct: false },
+    ],
+  },
+  {
+    question: "What is the result of 12 % 2?",
+    answers: [
+      { text: "1", correct: false },
+      { text: "0", correct: true },
+      { text: "2", correct: false },
+      { text: "0.5", correct: false },
+    ],
+  },
+  {
+    question: "What is the correct way of using the length property?",
+    answers: [
+      { text: "[.length]", correct: false },
+      { text: ".length()", correct: false },
+      { text: ".length", correct: true },
+      { text: "length", correct: false },
+    ],
+  },
+  {
+    question: "Which of the following items isn't Truthy?",
+    answers: [
+      { text: "2", correct: false },
+      { text: "apples", correct: false },
+      { text: "array.length", correct: false },
+      { text: "NaN", correct: true },
+    ],
+  },
+  {
+    question: "In the following, localStorage.setItem('name', 'Ben'), which item is being set as the key?",
+    answers: [
+      { text: "localStorage", correct: false },
+      { text: "There is no key", correct: false },
+      { text: "Ben", correct: false },
+      { text: "name", correct: true },
+    ],
+  },
+  {
+    question: `const p = document.createElement("p"); document.body.appendChild(p);
+    What is happening in this code?`,
+    answers: [
+      { text: "Creates a new array", correct: false },
+      { text: "Nothing", correct: false },
+      { text: "Paragraph will be appended to document", correct: true },
+      { text: "This will throw an error", correct: false },
+    ],
+  },
+  {
+    question: "What does the forEach method do here: array1.forEach(element => console.log(element))",
+    answers: [
+      { text: "console log each element", correct: true },
+      { text: "nothing", correct: false },
+      { text: "gets the length of each element", correct: false },
+      { text: "This will throw an error", correct: false },
     ],
   },
 ];
