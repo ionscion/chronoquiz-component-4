@@ -44,3 +44,12 @@ If the user clicks the Show Scores button they can see initials and correspondin
 ## Screenshots
 Here is a screenshot of the final page:
 ![](./Assets/Code%20quiz.png)
+
+Screenshot of in progress quiz
+![](./Assets/quiz-in-progress.png)
+
+Screenshot of the final form which user enters initials to save score
+![](./Assets/quiz-end-form.png)
+
+## Deployed Site Link
+The site is live at this link: https://ionscion.github.io/chronoquiz-component-4/
