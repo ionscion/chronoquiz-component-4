@@ -8,7 +8,7 @@ let timerEl = document.getElementById("time-left");
 let tableScore = document.getElementById("high-scores");
 let form = document.getElementById("html-Form");
 let questionContainer = document.getElementById("question-container");
-let timeLeft = 25;
+let timeLeft = 60;
 let shuffledQues = [];
 let currentQuestionIndex = 0;
 let currentScore = 0;
@@ -150,7 +150,7 @@ function chooseAnswer(selection) {
   });
 
   if (correct === "false") {
-    timeLeft -= 5;
+    timeLeft -= 10;
     timerEl.textContent = timeLeft;
   } else {
     currentScore += 10;
